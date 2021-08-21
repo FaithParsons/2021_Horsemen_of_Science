@@ -24,7 +24,7 @@ horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="d
 
 ```
 
-## Boxplots of outcome variables by timepoint and stimulus
+## Boxplots of variables by timepoint and stimulus exposure group (A = exposed to cow stimulus, B= exposed to lion stimulus)
 
 ## SniffPC: Percent of time sniffing
 
@@ -32,8 +32,8 @@ horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="d
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
-  summarise(mean=mean(SniffPC,na.rm=TRUE),
+  group_by(timepoint, group) %>%
+  summarise(n=n(), mean=mean(SniffPC,na.rm=TRUE),
             SD = sd(SniffPC, na.rm=TRUE),
             median = median(SniffPC, na.rm = TRUE),
             .groups = 'keep') %>%
@@ -65,7 +65,7 @@ ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
+  group_by(timepoint, group) %>%
   summarise(n = n(), mean=mean(ChewPC,na.rm=TRUE),
             SD = sd(ChewPC, na.rm=TRUE),
             median = median(ChewPC, na.rm = TRUE),
@@ -99,7 +99,7 @@ ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
+  group_by(timepoint, group) %>%
   summarise(n = n(), mean=mean(EarsPC,na.rm=TRUE),
             SD = sd(EarsPC, na.rm=TRUE),
             median = median(EarsPC, na.rm = TRUE),
@@ -129,7 +129,7 @@ ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
+  group_by(timepoint, group) %>%
   summarise(n = n(), mean=mean(WithdrPC,na.rm=TRUE),
             SD = sd(WithdrPC, na.rm=TRUE),
             median = median(WithdrPC, na.rm = TRUE),
@@ -162,7 +162,7 @@ ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
+  group_by(timepoint, group) %>%
   summarise(n = n(), mean=mean(InteractPC,na.rm=TRUE),
             SD = sd(InteractPC, na.rm=TRUE),
             median = median(InteractPC, na.rm = TRUE),
@@ -192,7 +192,7 @@ ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(group, timepoint) %>%
+  group_by(timepoint, group) %>%
   summarise(n = n(), mean=mean(Blows_occur,na.rm=TRUE),
             SD = sd(Blows_occur, na.rm=TRUE),
             median = median(Blows_occur, na.rm = TRUE),
