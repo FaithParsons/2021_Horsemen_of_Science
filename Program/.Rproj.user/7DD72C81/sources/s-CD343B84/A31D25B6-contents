@@ -39,7 +39,7 @@ horses %>%
             .groups = 'keep') %>%
   as.data.frame() %>%
   kable(digits = 2) %>%
-  kable_classic()
+  kable_styling(full_width = F)
 
 
 ```
@@ -72,7 +72,7 @@ horses %>%
             .groups = 'keep') %>%
   as.data.frame() %>%
   kable(digits = 2) %>%
-  kable_classic()
+  kable_styling(full_width = F)
 
 
 ```
@@ -106,7 +106,7 @@ horses %>%
             .groups = "keep") %>%
   as.data.frame() %>%
   kable(digits = 2) %>%
-  kable_classic
+  kable_styling(full_width = F)
 
 
 ```
@@ -136,7 +136,7 @@ horses %>%
             .groups="keep") %>%
   as.data.frame() %>%
   kable(digits = 2) %>%
-  kable_classic()
+  kable_styling(full_width = F)
 
 
 ```
@@ -169,7 +169,7 @@ horses %>%
             .groups = "keep") %>%
   as.data.frame() %>%
   kable(digits = 2) %>%
-  kable_classic()
+  kable_styling(full_width = F)
 
 
 ```
@@ -199,7 +199,7 @@ horses %>%
             .groups="keep") %>%
   as.data.frame() %>%
   kable(digits = 2, caption = "Number of audible blows") %>%
-  kable_classic()
+  kable_styling(full_width = F)
  
 
 ```
