@@ -1,0 +1,203 @@
+---
+title: "Descriptive statistics"
+author: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(ggthemes)
+library(knitr)
+
+
+horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="data") %>%
+  filter(timepoint == 2 | timepoint==3 | timepoint == 4) %>%
+  mutate(tp = recode(timepoint, "tp2" = 2, "tp3" = 3, "tp4" = 4)) %>%
+  as.data.frame()
+
+
+```
+
+## Boxplots of outcome variables by timepoint and stimulus
+
+#### Outcome: SniffPC
+
+Sniffing the container - percent of time with head visible
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(SniffPC,na.rm=TRUE),
+            SD = sd(SniffPC, na.rm=TRUE),
+            median = median(SniffPC, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+```{r, echo=FALSE, warning=FALSE}
+
+
+ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+
+
+```
+
+
+
+#### Outcome: ChewPC
+chewing - percent of time with head visible
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(ChewPC,na.rm=TRUE),
+            SD = sd(ChewPC, na.rm=TRUE),
+            median = median(ChewPC, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+```
+
+
+
+#### Outcome: EarsPC
+
+ears forward  percent of time with head visible
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(EarsPC,na.rm=TRUE),
+            SD = sd(EarsPC, na.rm=TRUE),
+            median = median(EarsPC, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+```
+
+
+#### Outcome: WithdrPC
+
+withdrawal percent of time with head visible
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(WithdrPC,na.rm=TRUE),
+            SD = sd(WithdrPC, na.rm=TRUE),
+            median = median(WithdrPC, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+```
+
+
+#### Outcome: InteractPC
+
+Interaction - percent of time with head visible
+
+
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(InteractPC,na.rm=TRUE),
+            SD = sd(InteractPC, na.rm=TRUE),
+            median = median(InteractPC, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+```
+
+
+#### Outcome: Blows_occur
+
+total number of audible blows
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(stimulus, timepoint) %>%
+  summarise(mean=mean(Blows_occur,na.rm=TRUE),
+            SD = sd(Blows_occur, na.rm=TRUE),
+            median = median(Blows_occur, na.rm = TRUE)) %>%
+  as.data.frame() %>%
+  kable(digits = 2)
+
+
+```
+
+
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=factor(stimulus))) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic()
+
+```
