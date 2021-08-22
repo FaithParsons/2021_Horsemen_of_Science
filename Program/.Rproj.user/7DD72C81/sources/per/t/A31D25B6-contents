@@ -1,7 +1,9 @@
 ---
 title: "Descriptive statistics"
 author: ""
-output: html_document
+output: 
+  html_document: 
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -18,13 +20,17 @@ library(kableExtra)
 horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="data") %>%
   filter(timepoint == 2 | timepoint==3 | timepoint == 4) %>%
   mutate(group = case_when(stimulus == 1 ~ "Group A",
-                           stimulus == 2 ~ "Group B")) %>%
+                           stimulus == 2 ~ "Group B"),
+         approach_corrected = if_else(Approach_lat > Visible, Visible, Approach_lat),
+         pct_latency = 100*approach_corrected/Visible)%>%
   as.data.frame()
 
 
 ```
 
-## Boxplots of variables by timepoint and stimulus exposure group (A = exposed to cow stimulus, B= exposed to lion stimulus)
+## Boxplots of variables by timepoint and stimulus exposure group 
+ - Group A = exposed to cow stimulus, 
+ - Group B = exposed to lion stimulus)
 
 ## SniffPC: Percent of time sniffing
 
@@ -214,6 +220,69 @@ ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=group)) +
   geom_jitter() +
   theme_classic() +
   ylab("Number of audible blows") +
+  xlab("Timepoint")
+
+```
+
+
+## Approach latency (percent) 
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(timepoint, group) %>%
+  summarise(n = n(), mean=mean(pct_latency,na.rm=TRUE),
+            SD = sd(pct_latency, na.rm=TRUE),
+            median = median(pct_latency, na.rm = TRUE),
+            .groups="keep") %>%
+  as.data.frame() %>%
+  kable(digits = 2, caption = "Number of audible blows") %>%
+  kable_styling(full_width = F)
+ 
+
+```
+
+
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=pct_latency,fill=group)) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic() +
+  ylab("Number of audible blows") +
+  xlab("Timepoint")
+
+```
+
+## Mean Heart Rate
+
+```{r, echo=FALSE, warning=FALSE}
+
+horses %>%
+  group_by(timepoint, group) %>%
+  summarise(n = n(), mean=mean(MeanHR,na.rm=TRUE),
+            SD = sd(MeanHR, na.rm=TRUE),
+            median = median(MeanHR, na.rm = TRUE),
+            .groups="keep") %>%
+  as.data.frame() %>%
+  kable(digits = 2, caption = "Mean HR (BPM)") %>%
+  kable_styling(full_width = F)
+ 
+
+```
+
+
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+ggplot(horses, aes(x=factor(timepoint), y=MeanHR,fill=group)) +
+  geom_boxplot() +
+  geom_jitter() +
+  theme_classic() +
+  ylab("Mean HR (BPM)") +
   xlab("Timepoint")
 
 ```

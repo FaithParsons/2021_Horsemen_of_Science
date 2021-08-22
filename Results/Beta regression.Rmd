@@ -1,0 +1,52 @@
+---
+title: "Beta regression"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(ggthemes)
+library(knitr)
+library(kableExtra)
+library(betareg)
+library(zoib)
+
+horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="data") %>%
+  filter(timepoint == 2 | timepoint==3 | timepoint == 4) %>%
+  mutate(group = case_when(stimulus == 1 ~ "Group A",
+                           stimulus == 2 ~ "Group B"),
+         pct_sniff = SniffPC/100,
+         pct_chew = ChewPC/100) %>%
+  filter(pct_chew >= 0) %>%
+  as.data.frame()
+
+
+
+model <- zoib(pct_chew ~ group + timepoint| 1 | 1, 
+              data=horses, 
+              joint=F,
+              random = 1,
+              EUID = horses$id,
+              zero.inflation = F,
+              one.inflation = TRUE,
+              n.iter = 1000,
+              n.thin=50,
+              n.burn=200)
+
+coef(model)
+
+
+```
+
+
+
+
+```{r}
+
+
+```
+

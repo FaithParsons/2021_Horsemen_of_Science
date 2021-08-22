@@ -1,0 +1,46 @@
+"0","model <- zoib(pct_chew ~ group + timepoint| 1 | 1, 
+              data=horses, 
+              joint=F,
+              random = 1,
+              EUID = horses$id,
+              zero.inflation = F,
+              one.inflation = TRUE,
+              n.iter = 1000,
+              n.thin=50,
+              n.burn=200)
+"
+"1","[1]"
+"1"," ""***************************************************************************"""
+"1","
+"
+"1","[1]"
+"1"," ""* List of parameter for which the posterior samples are generated         *"""
+"1","
+"
+"1","[1]"
+"1"," ""* b: regression coeff in the linear predictor for the mean of beta dist'n *"""
+"1","
+"
+"1","[1]"
+"1"," ""* d: regression coeff in the linear predictor for the sum of the two      *"""
+"1","
+"
+"1","[1]"
+"1"," ""*    shape parameters in the beta distribution                            *"""
+"1","
+"
+"1","[1]"
+"1"," ""* b0: regression coeff in the linear predictor for Prob(y=0)              *"""
+"1","
+"
+"1","[1]"
+"1"," ""* b1: regression coeff in the linear predictor for Prob(y=1)              *"""
+"1","
+"
+"1","[1]"
+"1"," ""***************************************************************************"""
+"1","
+"
+"2","Error in sep.1z1(y[, i], n, xmu.1, p.xmu, xsum.1, p.xsum, x1.1, p.x1,  : 
+  object 'x1.1' not found
+"

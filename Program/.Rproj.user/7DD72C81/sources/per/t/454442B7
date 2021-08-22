@@ -12,14 +12,14 @@
     "properties": {
         "expression": "horses",
         "caption": "horses",
-        "totalObservations": 51,
-        "displayedObservations": 51,
-        "variables": 31,
-        "cacheKey": "021F3F58",
+        "totalObservations": "47",
+        "displayedObservations": "47",
+        "variables": "32",
+        "cacheKey": "496036FC",
         "object": "horses",
         "environment": "",
-        "contentUrl": "grid_resource/gridviewer.html?env=&obj=horses&cache_key=021F3F58&max_cols=50",
-        "preview": 0
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=horses&cache_key=496036FC&max_cols=50",
+        "preview": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 4189029841723747941,

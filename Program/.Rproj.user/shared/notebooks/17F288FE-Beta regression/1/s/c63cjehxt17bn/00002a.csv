@@ -1,0 +1,12 @@
+"0","model <- zoib(ChewPC/100 ~ group| group | group, 
+              data=horses, 
+              joint=FALSE,
+              random = 1,
+              EUID = horses$id,
+              zero.inflation = TRUE,
+              one.inflation = F,
+              n.iter = 1000)
+"
+"2","Error in terms.formula(paste_formula(NULL, attr(Formula, ""lhs""), rsep = ""+"")) : 
+  invalid model formula in ExtractVars
+"
