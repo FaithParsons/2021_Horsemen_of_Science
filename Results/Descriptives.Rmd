@@ -114,6 +114,10 @@ horses %>%
   kable(digits = 2) %>%
   kable_styling(full_width = F)
 
+horses %>%
+  filter(timepoint==3 & stimulus==2) %>%
+  as.data.frame()
+
 
 ```
 
@@ -121,7 +125,7 @@ horses %>%
 
 ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=group)) +
   geom_boxplot() +
-  geom_jitter() +
+  geom_point(position = position_jitterdodge()) +
   ylab("% time with ears forward") +
   xlab("Timepoint") +
   theme_classic()
@@ -184,8 +188,8 @@ horses %>%
 ```{r, echo=FALSE, warning=FALSE}
 
 ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=group)) +
-  geom_boxplot() +
-  geom_jitter() +
+  geom_boxplot(outlier.shape = NA) +
+  geom_point(position = position_jitterdodge(), aes(color=group)) +
   theme_classic() +
   ylab("% time interacting") +
   xlab("Timepoint")
