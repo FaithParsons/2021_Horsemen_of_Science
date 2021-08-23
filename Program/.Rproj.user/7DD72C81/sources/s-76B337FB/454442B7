@@ -19,7 +19,8 @@
         "object": "horses",
         "environment": "",
         "contentUrl": "grid_resource/gridviewer.html?env=&obj=horses&cache_key=496036FC&max_cols=50",
-        "preview": "0"
+        "preview": "0",
+        "Source": "Source"
     },
     "folds": "",
     "lastKnownWriteTime": 4189029841723747941,
