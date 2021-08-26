@@ -3,7 +3,7 @@
     "path": "C:/Users/FaithParsons/Documents/Personal/Github/2021_Horsemen_of_Science/Results/Beta regression.Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "1767644206",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1629579537727.0,
@@ -13,7 +13,8 @@
         "tempName": "Untitled1",
         "cursorPosition": "43,0",
         "scrollLine": "0",
-        "last_setup_crc32": ""
+        "last_setup_crc32": "",
+        "Source": "Source"
     },
     "folds": "",
     "lastKnownWriteTime": 1629644294,
