@@ -17,6 +17,7 @@ library(knitr)
 library(kableExtra)
 
 
+          
 horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="data") %>%
   filter(timepoint == 2 | timepoint==3 | timepoint == 4) %>%
   mutate(group = case_when(stimulus == 1 ~ "Group A",
@@ -57,7 +58,8 @@ ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=group)) +
   geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
   theme_classic() +
   ylab ("% time sniffing") +
-  xlab("Timepoint")
+  xlab("Timepoint") +
+  theme(text=element_text(family="Arial",  size=18))
 
 
 
@@ -93,7 +95,8 @@ ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=group)) +
 
   theme_classic() +
   ylab ("% time chewing") +
-  xlab("Timepoint") 
+  xlab("Timepoint") +
+  theme(text=element_text(family="Arial",  size=18))
 
 
 ```
@@ -127,7 +130,8 @@ ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=group)) +
 
   ylab("% time with ears forward") +
   xlab("Timepoint") +
-  theme_classic()
+  theme_classic() +
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
 
@@ -158,7 +162,8 @@ ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=group)) +
   geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
   theme_classic() +
   ylab("% time withdrawing") +
-  xlab("Timepoint")
+  xlab("Timepoint")+
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
 
@@ -192,7 +197,8 @@ ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=group)) +
 
   theme_classic() +
   ylab("% time interacting") +
-  xlab("Timepoint")
+  xlab("Timepoint") +
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
 
@@ -225,7 +231,8 @@ ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=group)) +
 
   theme_classic() +
   ylab("Number of audible blows") +
-  xlab("Timepoint")
+  xlab("Timepoint") +
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
 
@@ -257,7 +264,8 @@ ggplot(horses, aes(x=factor(timepoint), y=pct_latency,fill=group)) +
   geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
   theme_classic() +
   ylab("Approach latency (% time)") +
-  xlab("Timepoint")
+  xlab("Timepoint")+
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
 
@@ -288,6 +296,7 @@ ggplot(horses, aes(x=factor(timepoint), y=MeanHR)) +
   geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
   theme_classic() +
   ylab("Mean HR (BPM)") +
-  xlab("Timepoint")
+  xlab("Timepoint")+
+  theme(text=element_text(family="Arial",  size=18))
 
 ```
