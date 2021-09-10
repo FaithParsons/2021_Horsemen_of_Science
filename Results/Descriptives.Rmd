@@ -20,18 +20,29 @@ library(kableExtra)
           
 horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="data") %>%
   filter(timepoint == 2 | timepoint==3 | timepoint == 4) %>%
-  mutate(group = case_when(stimulus == 1 ~ "Group A",
-                           stimulus == 2 ~ "Group B"),
+  mutate(Group = case_when(stimulus == 1 ~ "cow",
+                           stimulus == 2 ~ "lion"),
          approach_corrected = if_else(Approach_lat > Visible, Visible, Approach_lat),
          pct_latency = 100*approach_corrected/Visible)%>%
   as.data.frame()
 
 
+library(sqldf)
+
+#sqldf("SELECT DISTINCT stimulus, sex, age_class, count(1)/3 FROM horses group by stimulus, sex, age_class") %>%
+#  View()
+
+#sqldf("SELECT DISTINCT stimulus, age_class, count(1)/3 FROM horses group by stimulus, age_class") %>%
+#  View()
+
+
 ```
 
-## Boxplots of variables by timepoint and stimulus exposure group 
+## Boxplots of variables by timepoint and stimulus exposure Group 
  - Group A = exposed to cow stimulus, 
  - Group B = exposed to lion stimulus)
+ 
+
 
 ## SniffPC: Percent of time sniffing
 
@@ -39,7 +50,7 @@ horses <- readxl::read_xlsx("../data/HR BEHAV database for Faith.xlsx", sheet="d
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n=n(), mean=mean(SniffPC,na.rm=TRUE),
             SD = sd(SniffPC, na.rm=TRUE),
             median = median(SniffPC, na.rm = TRUE),
@@ -53,13 +64,15 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
   theme_classic() +
-  ylab ("% time sniffing") +
+  ylab ("Sniffing (%)") +
   xlab("Timepoint") +
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 
 
@@ -73,7 +86,7 @@ ggplot(horses, aes(x=factor(timepoint), y=SniffPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(ChewPC,na.rm=TRUE),
             SD = sd(ChewPC, na.rm=TRUE),
             median = median(ChewPC, na.rm = TRUE),
@@ -89,14 +102,16 @@ horses %>%
 ```{r, echo=FALSE, warning=FALSE}
 
 
-ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
 
   theme_classic() +
-  ylab ("% time chewing") +
+  ylab ("Chewing (%)") +
   xlab("Timepoint") +
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 
 ```
@@ -109,7 +124,7 @@ ggplot(horses, aes(x=factor(timepoint), y=ChewPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(EarsPC,na.rm=TRUE),
             SD = sd(EarsPC, na.rm=TRUE),
             median = median(EarsPC, na.rm = TRUE),
@@ -124,15 +139,16 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
 
-  ylab("% time with ears forward") +
+  ylab("Ears forward (%)") +
   xlab("Timepoint") +
   theme_classic() +
-  theme(text=element_text(family="Arial",  size=18))
-
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 ```
 
 
@@ -142,7 +158,7 @@ ggplot(horses, aes(x=factor(timepoint), y=EarsPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(WithdrPC,na.rm=TRUE),
             SD = sd(WithdrPC, na.rm=TRUE),
             median = median(WithdrPC, na.rm = TRUE),
@@ -157,13 +173,15 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
   theme_classic() +
-  ylab("% time withdrawing") +
+  ylab("Withdrawal/retreat (%)") +
   xlab("Timepoint")+
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 ```
 
@@ -176,7 +194,7 @@ ggplot(horses, aes(x=factor(timepoint), y=WithdrPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(InteractPC,na.rm=TRUE),
             SD = sd(InteractPC, na.rm=TRUE),
             median = median(InteractPC, na.rm = TRUE),
@@ -191,14 +209,16 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
 
   theme_classic() +
-  ylab("% time interacting") +
+  ylab("Interacting with scent (%)") +
   xlab("Timepoint") +
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 ```
 
@@ -208,13 +228,13 @@ ggplot(horses, aes(x=factor(timepoint), y=InteractPC,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(Blows_occur,na.rm=TRUE),
             SD = sd(Blows_occur, na.rm=TRUE),
             median = median(Blows_occur, na.rm = TRUE),
             .groups="keep") %>%
   as.data.frame() %>%
-  kable(digits = 2, caption = "Number of audible blows") %>%
+  kable(digits = 2, caption = "Audible blows (instance)") %>%
   kable_styling(full_width = F)
  
 
@@ -225,14 +245,16 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
 
   theme_classic() +
-  ylab("Number of audible blows") +
+  ylab("Audible blows (instances)") +
   xlab("Timepoint") +
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 ```
 
@@ -242,7 +264,7 @@ ggplot(horses, aes(x=factor(timepoint), y=Blows_occur,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(pct_latency,na.rm=TRUE),
             SD = sd(pct_latency, na.rm=TRUE),
             median = median(pct_latency, na.rm = TRUE),
@@ -259,13 +281,15 @@ horses %>%
 
 ```{r, echo=FALSE, warning=FALSE}
 
-ggplot(horses, aes(x=factor(timepoint), y=pct_latency,fill=group)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+ggplot(horses, aes(x=factor(timepoint), y=pct_latency,fill=Group)) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
   theme_classic() +
   ylab("Approach latency (% time)") +
   xlab("Timepoint")+
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 ```
 
@@ -274,7 +298,7 @@ ggplot(horses, aes(x=factor(timepoint), y=pct_latency,fill=group)) +
 ```{r, echo=FALSE, warning=FALSE}
 
 horses %>%
-  group_by(timepoint, group) %>%
+  group_by(timepoint, Group) %>%
   summarise(n = n(), mean=mean(MeanHR,na.rm=TRUE),
             SD = sd(MeanHR, na.rm=TRUE),
             median = median(MeanHR, na.rm = TRUE),
@@ -292,11 +316,13 @@ horses %>%
 ```{r, echo=FALSE, warning=FALSE}
 
 ggplot(horses, aes(x=factor(timepoint), y=MeanHR)) +
-  geom_boxplot(outlier.shape = NA, aes(fill=group)) +
-  geom_point(position = position_jitterdodge(), aes(fill=group), pch=21, size =2) +
+  geom_boxplot(outlier.shape = NA, aes(fill=Group)) +
+  geom_point(position = position_jitterdodge(), aes(fill=Group), pch=21, size =2) +
   theme_classic() +
   ylab("Mean HR (BPM)") +
   xlab("Timepoint")+
-  theme(text=element_text(family="Arial",  size=18))
+  theme(text=element_text(family="Arial",  size=18),
+        legend.justification = c(0.5,1),
+        legend.title = element_blank())
 
 ```
